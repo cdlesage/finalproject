@@ -32,7 +32,8 @@ variables=c(
   "FourRaces" = "C02003_019"
 )
 
-
+## Loading in the rest of the data
+## Could probably use a loop for this but whatever
 ## 2009-2013 Data
 acs_2013 = get_acs(
   geography="block group",  # could be tract, block group, etc.
@@ -46,10 +47,6 @@ acs_2013 = get_acs(
 acs_2013$PercentMinority = ((acs_2013$TotalPopE - acs_2013$WhiteE) / acs_2013$TotalPopE) *100
 acs_2013$Percent25andOverWithBachelorsDegree = (acs_2013$BachelorsDegreeE / acs_2013$TotalPopE) *100
 
-
-
-write_csv(acs_2013, "acs_2013.csv")
-
 ## 2010-2014 Data
 acs_2014 = get_acs(
   geography="block group",  # could be tract, block group, etc.
@@ -60,6 +57,9 @@ acs_2014 = get_acs(
   survey="acs5",
   output="wide"
 )
+acs_2014$PercentMinority = ((acs_2014$TotalPopE - acs_2014$WhiteE) / acs_2014$TotalPopE) *100
+acs_2014$Percent25andOverWithBachelorsDegree = (acs_2014$BachelorsDegreeE / acs_2014$TotalPopE) *100
+
 ## 2011-2015 Data
 acs_2015 = get_acs(
   geography="block group",  # could be tract, block group, etc.
@@ -70,6 +70,9 @@ acs_2015 = get_acs(
   survey="acs5",
   output="wide"
 )
+acs_2015$PercentMinority = ((acs_2015$TotalPopE - acs_2015$WhiteE) / acs_2015$TotalPopE) *100
+acs_2015$Percent25andOverWithBachelorsDegree = (acs_2015$BachelorsDegreeE / acs_2015$TotalPopE) *100
+
 ## 2012-2016 Data
 acs_2016 = get_acs(
   geography="block group",  # could be tract, block group, etc.
@@ -80,6 +83,9 @@ acs_2016 = get_acs(
   survey="acs5",
   output="wide"
 )
+acs_2016$PercentMinority = ((acs_2016$TotalPopE - acs_2016$WhiteE) / acs_2016$TotalPopE) *100
+acs_2016$Percent25andOverWithBachelorsDegree = (acs_2016$BachelorsDegreeE / acs_2016$TotalPopE) *100
+
 ## 2013-2017 Data
 acs_2017 = get_acs(
   geography="block group",  # could be tract, block group, etc.
@@ -90,6 +96,9 @@ acs_2017 = get_acs(
   survey="acs5",
   output="wide"
 )
+acs_2017$PercentMinority = ((acs_2017$TotalPopE - acs_2017$WhiteE) / acs_2017$TotalPopE) *100
+acs_2017$Percent25andOverWithBachelorsDegree = (acs_2017$BachelorsDegreeE / acs_2017$TotalPopE) *100
+
 ## 2014-2018 Data
 acs_2018 = get_acs(
   geography="block group",  # could be tract, block group, etc.
@@ -100,6 +109,9 @@ acs_2018 = get_acs(
   survey="acs5",
   output="wide"
 )
+acs_2018$PercentMinority = ((acs_2018$TotalPopE - acs_2018$WhiteE) / acs_2018$TotalPopE) *100
+acs_2018$Percent25andOverWithBachelorsDegree = (acs_2018$BachelorsDegreeE / acs_2018$TotalPopE) *100
+
 ## 2015-2019 Data
 acs_2019 = get_acs(
   geography="block group",  # could be tract, block group, etc.
@@ -110,6 +122,9 @@ acs_2019 = get_acs(
   survey="acs5",
   output="wide"
 )
+acs_2019$PercentMinority = ((acs_2019$TotalPopE - acs_2019$WhiteE) / acs_2019$TotalPopE) *100
+acs_2019$Percent25andOverWithBachelorsDegree = (acs_2019$BachelorsDegreeE / acs_2019$TotalPopE) *100
+
 ## 2016-2020 Data
 acs_2020 = get_acs(
   geography="block group",  # could be tract, block group, etc.
@@ -120,6 +135,10 @@ acs_2020 = get_acs(
   survey="acs5",
   output="wide"
 )
+acs_2020$PercentMinority = ((acs_2020$TotalPopE - acs_2020$WhiteE) / acs_2020$TotalPopE) *100
+acs_2020$Percent25andOverWithBachelorsDegree = (acs_2020$BachelorsDegreeE / acs_2020$TotalPopE) *100
+
+
 ## 2017-2021 Data
 acs_2021 = get_acs(
   geography="block group",  # could be tract, block group, etc.
@@ -132,8 +151,6 @@ acs_2021 = get_acs(
 )
 acs_2021$PercentMinority = ((acs_2021$TotalPopE - acs_2021$WhiteE) / acs_2021$TotalPopE) *100
 acs_2021$Percent25andOverWithBachelorsDegree = (acs_2021$BachelorsDegreeE / acs_2021$TotalPopE) *100
-
-
 
 
 ## Identifying at risk neighborhoods
@@ -196,12 +213,94 @@ ggplot(acs_2021_spatial) +
 
 ## Mapping Percent of Pop 25 and Over with a Bachelors Degree
 ggplot(acs_2013_spatial) +
-  geom_sf(aes(fill=MedianGrossRentE))
+  geom_sf(aes(fill=Percent25andOverWithBachelorsDegree))
 ggplot(acs_2021_spatial) +
-  geom_sf(aes(fill=MedianGrossRentE))
+  geom_sf(aes(fill=Percent25andOverWithBachelorsDegree))
 
 ## Mapping Household Income
 ggplot(acs_2013_spatial) +
-  geom_sf(aes(fill=MedianGrossRentE))
+  geom_sf(aes(fill=MedianHouseholdIncomeE))
 ggplot(acs_2021_spatial) +
-  geom_sf(aes(fill=MedianGrossRentE))
+  geom_sf(aes(fill=MedianHouseholdIncomeE))
+
+## Creating a table to graph the variables over time
+## I'm sure there is a way way easier way to do this, my apologies for the length 
+VulnerableGroups = join3$NAME
+acs_2013_25=filter(acs_2013, NAME %in% VulnerableGroups)
+acs_2014_25=filter(acs_2014, NAME %in% VulnerableGroups)
+acs_2015_25=filter(acs_2015, NAME %in% VulnerableGroups)
+acs_2016_25=filter(acs_2016, NAME %in% VulnerableGroups)
+acs_2017_25=filter(acs_2017, NAME %in% VulnerableGroups)
+acs_2018_25=filter(acs_2018, NAME %in% VulnerableGroups)
+acs_2019_25=filter(acs_2019, NAME %in% VulnerableGroups)
+acs_2020_25=filter(acs_2020, NAME %in% VulnerableGroups)
+acs_2021_25=filter(acs_2021, NAME %in% VulnerableGroups)
+
+MedianHouseholdIncome= c(mean(na.omit(acs_2013_25$MedianHouseholdIncomeE)), 
+                         mean(na.omit(acs_2014_25$MedianHouseholdIncomeE)),
+                         mean(na.omit(acs_2015_25$MedianHouseholdIncomeE)),
+                         mean(na.omit(acs_2016_25$MedianHouseholdIncomeE)),
+                         mean(na.omit(acs_2017_25$MedianHouseholdIncomeE)),
+                         mean(na.omit(acs_2018_25$MedianHouseholdIncomeE)),
+                         mean(na.omit(acs_2019_25$MedianHouseholdIncomeE)),
+                         mean(na.omit(acs_2020_25$MedianHouseholdIncomeE)),
+                         mean(na.omit(acs_2021_25$MedianHouseholdIncomeE))
+                         )
+
+
+MedianGrossRent = c(mean(na.omit(acs_2013_25$MedianGrossRentE)), 
+                    mean(na.omit(acs_2014_25$MedianGrossRentE)),
+                    mean(na.omit(acs_2015_25$MedianGrossRentE)),
+                    mean(na.omit(acs_2016_25$MedianGrossRentE)),
+                    mean(na.omit(acs_2017_25$MedianGrossRentE)),
+                    mean(na.omit(acs_2018_25$MedianGrossRentE)),
+                    mean(na.omit(acs_2019_25$MedianGrossRentE)),
+                    mean(na.omit(acs_2020_25$MedianGrossRentE)),
+                    mean(na.omit(acs_2021_25$MedianGrossRentE))
+)
+
+
+PercentageMinority = c(mean(na.omit(acs_2013_25$PercentMinority)), 
+                       mean(na.omit(acs_2014_25$PercentMinority)),
+                       mean(na.omit(acs_2015_25$PercentMinority)),
+                       mean(na.omit(acs_2016_25$PercentMinority)),
+                       mean(na.omit(acs_2017_25$PercentMinority)),
+                       mean(na.omit(acs_2018_25$PercentMinority)),
+                       mean(na.omit(acs_2019_25$PercentMinority)),
+                       mean(na.omit(acs_2020_25$PercentMinority)),
+                       mean(na.omit(acs_2021_25$PercentMinority))
+)
+
+PercentBachelors = c(mean(na.omit(acs_2013_25$Percent25andOverWithBachelorsDegree)), 
+                     mean(na.omit(acs_2014_25$Percent25andOverWithBachelorsDegree)),
+                     mean(na.omit(acs_2015_25$Percent25andOverWithBachelorsDegree)),
+                     mean(na.omit(acs_2016_25$Percent25andOverWithBachelorsDegree)),
+                     mean(na.omit(acs_2017_25$Percent25andOverWithBachelorsDegree)),
+                     mean(na.omit(acs_2018_25$Percent25andOverWithBachelorsDegree)),
+                     mean(na.omit(acs_2019_25$Percent25andOverWithBachelorsDegree)),
+                     mean(na.omit(acs_2020_25$Percent25andOverWithBachelorsDegree)),
+                     mean(na.omit(acs_2021_25$Percent25andOverWithBachelorsDegree))
+)
+
+
+totals = data.frame(Year=(c(2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021)), 
+                    MedianHouseholdIncome=MedianHouseholdIncome,
+                    MedianGrossRent=MedianGrossRent,
+                    PercentageMinority=PercentageMinority,
+                    PercentBachelors=PercentBachelors
+                    )
+
+## Plots
+ggplot(data=totals, aes(x=Year, y=MedianHouseholdIncome)) +
+  geom_line(color="red")+
+  geom_point()
+ggplot(data=totals, aes(x=Year, y=MedianGrossRent)) +
+  geom_line(color="green")+
+  geom_point()
+ggplot(data=totals, aes(x=Year, y=PercentageMinority)) +
+  geom_line(color="purple")+
+  geom_point()
+ggplot(data=totals, aes(x=Year, y=PercentBachelors)) +
+  geom_line(color="blue")+
+  geom_point()
+
